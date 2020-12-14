@@ -1,32 +1,43 @@
 /** @format */
-const http = require('http');
 const request = require('request');
 const { app, BrowserWindow } = require('electron');
 
 let mainWindow = null;
 
 function createWindow() {
+
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        show: false,
     });
-
     mainWindow.webContents.openDevTools();
-    const hasConnectReq = () => {
+    // 如果不先loadURL, 本地代码不会映射到9223端口
+    mainWindow.loadURL('http://127.0.0.1:4000/');
+
+    const show = () => {
+        // 判断本地代码有没有映射到9223端口
         request('http://127.0.0.1:9223/json/list', (err, response, body) => {
-            if (err) {
-                setTimeout(() => {
-                    hasConnectReq();
-                }, 1000);
+            if (
+                err == null &&
+                body &&
+                JSON.parse(body).find(
+                    (ws) => ws.url === 'http://127.0.0.1:4000/'
+                )
+            ) {
+                mainWindow.show();
                 return;
-            } else {
-                console.log(response, body);
             }
+
+            setTimeout(() => {
+                show();
+            }, 1000);
         });
     };
-    setTimeout(() => {
-        hasConnectReq();
-    }, 0);
+
+    mainWindow.on('ready-to-show', () => {
+        show();
+    });
 }
 
 app.on('window-all-closed', function () {
