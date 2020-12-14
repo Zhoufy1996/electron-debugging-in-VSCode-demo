@@ -1,0 +1,29 @@
+{
+  "name": "electron-debugging-in-vscode-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main-process/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "main:dev": "webpack --config ./main/scripts/webpack.dev.js && electron . --remote-debugging-port=9223",
+    "render:dev": "node ./render/scripts/dev.server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^11.1.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^4.5.0",
+    "prettier": "^2.2.1",
+    "webpack": "^5.10.1",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-middleware": "^4.0.2"
+  }
+}
