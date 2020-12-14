@@ -1,6 +1,6 @@
 /** @format */
-
 const http = require('http');
+const request = require('request');
 const { app, BrowserWindow } = require('electron');
 
 let mainWindow = null;
@@ -13,30 +13,16 @@ function createWindow() {
 
     mainWindow.webContents.openDevTools();
     const hasConnectReq = () => {
-        const req = http.request(
-            'http://127.0.0.1:9223/json/list',
-            { timeout: 1000 },
-            (res) => {
-                console.log(res);
-                res.on('data', (data) => {
-                    if (data && data.find((item) => item.title === 'demo')) {
-                        tag = true;
-                        mainWindow.loadUrl('http://127.0.0.1:4000');
-                    } else {
-                        setTimeout(() => {
-                            hasConnectReq();
-                        }, 0);
-                    }
-                });
+        request('http://127.0.0.1:9223/json/list', (err, response, body) => {
+            if (err) {
+                setTimeout(() => {
+                    hasConnectReq();
+                }, 1000);
+                return;
+            } else {
+                console.log(response, body);
             }
-        );
-        req.on('error', (e) => {
-            console.log(e);
-            setTimeout(() => {
-                hasConnectReq();
-            }, 0);
         });
-        req.end();
     };
     setTimeout(() => {
         hasConnectReq();
