@@ -3,23 +3,24 @@
 const { getAvailablePort } = require('./utils');
 
 /** @format */
-let frontPort = null;
+let frontPort = 4000;
 
-const getPort = (port = 4000, timeout = 5000) => {
-    if (frontPort == null) {
-        return new Promise((resolve, reject) => {
-            getAvailablePort(port, timeout)
-                .then((p) => {
-                    frontPort = p;
-                    resolve(p);
-                })
-                .catch((e) => {
-                    reject(e);
-                });
-        });
-    } else {
-        return Promise.resolve(port);
-    }
+const getPort = () => {
+    return Promise.resolve(frontPort);
+    // if (frontPort == null) {
+    //     return new Promise((resolve, reject) => {
+    //         getAvailablePort(port, timeout)
+    //             .then((p) => {
+    //                 frontPort = p;
+    //                 resolve(p);
+    //             })
+    //             .catch((e) => {
+    //                 reject(e);
+    //             });
+    //     });
+    // } else {
+    //     return Promise.resolve(port);
+    // }
 };
 
 exports.getPort = getPort;
