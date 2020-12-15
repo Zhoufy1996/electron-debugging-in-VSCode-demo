@@ -1,4 +1,3 @@
-/** @format */
 import React from 'react';
 import ReactDom from 'react-dom';
 
@@ -7,7 +6,7 @@ const App = () => {
 };
 
 const render = () => {
-    const root = document.getElementById("root")
+    const root = document.getElementById('root');
     ReactDom.render(<App />, root);
 };
 

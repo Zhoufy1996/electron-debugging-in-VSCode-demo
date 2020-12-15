@@ -1,6 +1,3 @@
-/** @format */
-/** @format */
-
 const path = require('path');
 
 const mainConfig = {

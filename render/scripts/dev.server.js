@@ -1,13 +1,10 @@
-/** @format */
-
 const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const devConfig = require('./webpack.dev');
-const { getPort } = require('../../context');
+const { port } = require('../../context');
 
 const initizalize = async () => {
-    const port = await getPort();
     const app = express();
     const compiler = webpack(devConfig);
 

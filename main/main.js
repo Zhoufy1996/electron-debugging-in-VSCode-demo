@@ -1,8 +1,7 @@
-/** @format */
 const request = require('request');
 const { app, BrowserWindow } = require('electron');
 const minimist = require('minimist');
-const { getPort } = require('../context');
+const { port } = require('../context');
 
 const args = minimist(process.argv.slice(2));
 
@@ -15,9 +14,7 @@ const createWindow = async () => {
         show: false,
     });
 
-    const fontPort = await getPort();
-
-    const url = `http://127.0.0.1:${fontPort}/`;
+    const url = `http://127.0.0.1:${port}/`;
 
     mainWindow.webContents.openDevTools();
 
@@ -56,12 +53,12 @@ app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') app.quit();
 });
 
+app.on('activate', function () {
+    if (mainWindow == null) {
+        createWindow();
+    }
+});
+
 app.whenReady().then(() => {
     createWindow();
-
-    app.on('activate', function () {
-        if (mainWindow == null) {
-            createWindow();
-        }
-    });
 });

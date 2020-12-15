@@ -1,6 +1,3 @@
-/** @format */
-
-const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -11,7 +8,7 @@ const devConfig = {
     },
     output: {
         path: path.join(process.cwd(), 'render-process'),
-        filename: '[name].js',
+        filename: 'app.js',
         publicPath: '/',
     },
     module: {
@@ -31,14 +28,12 @@ const devConfig = {
     resolve: {
         extensions: ['.jsx', '.js'],
     },
-
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(process.cwd(), 'public/index.html'),
             title: 'demo',
             favicon: path.join(process.cwd(), 'public/favicon.ico'),
-            filename: "index.html",
+            filename: 'index.html',
             minify: true,
         }),
     ],

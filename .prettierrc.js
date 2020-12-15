@@ -10,7 +10,7 @@ const prettierConfig = {
     trailingCommas: 'always', // 尾逗号
     alwaysParens: 'always', // 单行箭头函数的参数添加圆括号
     // requirePragma: true, // 文件头部添加格式化注释
-    insertPragma: true, // @format的特殊注释
+    // insertPragma: false, // @format的特殊注释
 };
 
 module.exports = prettierConfig;
